@@ -7,6 +7,29 @@ import json
 root = Tk()
 root.title("3")
 root.geometry("700x140")
+
+
+def agify_lookup(name="john"):
+    try:
+        response = requests.get(
+            "https://api.agify.io",
+            params={"name": name},
+            timeout=5
+        )
+
+        response.raise_for_status()
+        data = response.json()
+
+        print("Agify API Response:")
+        print(f"Predicted Age: {data.get(age)}")
+        
+
+        return data
+
+    except Exception as e:
+        print(f"Agify API Error: {e}")
+        return None
+        
 def ziplookup():
 #    zip.get()
 #    ziplabel = Label(root,text = zip.get())
@@ -47,5 +70,7 @@ zip.grid(row=0,column=0)
 
 zipButton = Button (root,text="look up code",command = ziplookup)
 zipButton.grid(row=0,column=1)
+
+agify_data = agify_lookup()
 
 root.mainloop()
